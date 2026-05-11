@@ -1,0 +1,61 @@
+.lesson-notes-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.notes-heading {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #4a90e2;
+}
+
+.accordion {
+  border-bottom: 1px solid #ddd;
+}
+
+.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #333;
+}
+
+.accordion-header:hover {
+  background: #f7f9fc;
+}
+
+.accordion-content {
+  padding: 12px 15px;
+  background: #fafafa;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.case-study {
+  background: #eaf3ff;
+  border-left: 4px solid #4a90e2;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 6px;
+}
+
+.case-study h5 {
+  margin-bottom: 6px;
+  color: #2c3e50;
+}
+
+.case-image {
+  margin-top: 8px;
+  text-align: center;
+}
+
+.case-image img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}

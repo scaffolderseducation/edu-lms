@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Users can only access their own profile
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Everyone logged in can read course modules & quizzes
+    match /modules/{moduleId} {
+      allow read: if request.auth != null;
+      allow write: if false; // prevent random edits from frontend
+    }
+
+    match /quizzes/{quizId} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+
+    // Store quiz attempts, users can only write their own results
+    match /quizAttempts/{attemptId} {
+      allow read, write: if request.auth != null && request.auth.uid == request.resource.data.userId;
+    }
+
+    // Certificates, only the owner can read/write
+    match /certificates/{certId} {
+      allow read, write: if request.auth != null && request.auth.uid == resource.data.userId;
+    }
+  }
+}

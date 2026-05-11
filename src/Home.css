@@ -1,0 +1,211 @@
+/* ==============================
+   HOME PAGE ONLY
+============================== */
+
+:root {
+  --primary: #00a295;
+  --secondary: #ff9e3d;
+  --accent: #e0f2f1;
+  --text-dark: #0f2c2c;
+  --text-light: #444;
+  --bg-light: #f8fafc;
+  --white: #ffffff;
+}
+
+.home-container {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* ------------------------------
+   HERO SECTION
+------------------------------ */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 8%;
+  background: var(--bg-light);
+}
+
+.hero-left {
+  max-width: 550px;
+}
+
+.hero-left h1 {
+  font-size: 45px;
+  line-height: 1.2;
+  margin-bottom: 15px;
+}
+
+.hero-left h1 span {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.hero-left p {
+  color: var(--text-light);
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+/* ------------------------------
+   HERO RIGHT
+------------------------------ */
+.hero-right {
+  display: flex;
+  justify-content: center;
+}
+
+.hero-logo {
+  width: 350px;
+  animation: float 3s infinite ease-in-out;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+
+/* ------------------------------
+   COURSE INTRO
+------------------------------ */
+.course-intro {
+  padding: 80px 8%;
+  background: var(--white);
+  text-align: center;
+}
+
+.course-intro h2 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.course-subtitle {
+  color: var(--text-light);
+  margin-bottom: 40px;
+}
+
+/* HOME-SPECIFIC CARD */
+.home-course-card {
+  max-width: 700px;
+  margin: auto;
+  background: var(--bg-light);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 6px 25px #00000012;
+}
+
+.home-course-card h3 {
+  font-size: 26px;
+  margin-bottom: 15px;
+  color: var(--primary);
+}
+
+.course-desc {
+  font-size: 17px;
+  color: var(--text-light);
+  margin-bottom: 25px;
+}
+
+.course-points {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.course-points li {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* ------------------------------
+   FEATURES
+------------------------------ */
+.features {
+  padding: 70px 8%;
+  text-align: center;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+.feature-card {
+  background: var(--white);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px #00000010;
+  transition: 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+/* ------------------------------
+   TESTIMONIALS
+------------------------------ */
+.testimonials {
+  padding: 70px 8%;
+  background: var(--bg-light);
+  text-align: center;
+}
+
+.test-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+.test-card {
+  background: var(--white);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px #00000012;
+}
+
+/* ------------------------------
+   CTA
+------------------------------ */
+.cta {
+  text-align: center;
+  padding: 80px 8%;
+}
+
+/* ------------------------------
+   RESPONSIVE
+------------------------------ */
+@media (max-width: 992px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-left h1 {
+    font-size: 34px;
+  }
+
+  .hero-logo {
+    width: 250px;
+  }
+
+  .feature-grid,
+  .test-grid {
+    grid-template-columns: 1fr;
+  }
+}

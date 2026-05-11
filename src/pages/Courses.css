@@ -1,0 +1,48 @@
+.courses-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 40px;
+  text-align: center;
+}
+
+.courses-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  color: #198754; /* your theme color */
+  margin-bottom: 40px;
+}
+
+.course-card {
+  border: 1px solid #ddd;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.08);
+}
+
+.coming-soon-badge {
+  display: inline-block;
+  background: #ffc107;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 15px;
+}
+
+.notify-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #198754;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.notify-btn:hover {
+  background: #146c43;
+}

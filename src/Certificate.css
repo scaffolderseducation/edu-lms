@@ -1,0 +1,147 @@
+.certificate-wrapper {
+  text-align: center;
+  padding: 20px;
+  background: #fffdf6; /* light ivory background */
+}
+
+/* Certificate Box */
+.certificate {
+  width: 1000px;
+  margin: auto;
+  padding: 60px;
+  border: 20px solid #00bcd4; /* teal border */
+  background: #ffffff;
+  position: relative;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.25);
+  font-family: "Times New Roman", serif;
+  color: #2c3e50;
+}
+
+/* Watermark */
+.watermark {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 80px;
+  color: rgba(0, 0, 0, 0.05);
+  font-weight: bold;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Logo */
+.cert-logo {
+  width: 130px;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+}
+
+/* Organization Name */
+.cert-org {
+  font-size: 32px;
+  font-weight: bold;
+  color: #fbbc05; /* golden yellow */
+  margin-top: 10px;
+}
+
+/* Title */
+.cert-title {
+  font-size: 46px;
+  margin-top: 80px;
+  color: #2c3e50;
+  font-family: "Cinzel", serif;
+  font-weight: bold;
+}
+
+/* Subtitle */
+.cert-subtitle {
+  font-size: 20px;
+  margin: 20px 0;
+  color: #555;
+}
+
+/* Learner Name */
+.cert-name {
+  font-size: 38px;
+  font-family: "Great Vibes", cursive;
+  color: #00bcd4; /* teal */
+  margin: 10px 0;
+}
+
+/* Main Text */
+.cert-text {
+  font-size: 18px;
+  margin-top: 20px;
+  line-height: 1.6;
+}
+
+.cert-course {
+  font-size: 26px;
+  font-style: italic;
+  margin: 10px 0;
+  color: #34495e;
+}
+
+/* Date */
+.cert-date {
+  margin-top: 25px;
+  font-size: 16px;
+  color: gray;
+}
+
+/* Signatures */
+.cert-signatures {
+  margin-top: 90px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 100px;
+}
+
+.signature {
+  text-align: center;
+}
+
+.sig-line {
+  width: 160px;
+  height: 2px;
+  background: #2c3e50;
+  margin: 0 auto 8px;
+}
+
+.signature p {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Footer Tagline (black strip) */
+.cert-footer {
+  margin-top: 60px;
+  background: #000;
+  color: #00bcd4;
+  padding: 10px 0;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* Download Button */
+.download-btn {
+  margin-top: 30px;
+  padding: 12px 24px;
+  background: #00bcd4; /* teal */
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.download-btn:hover {
+  background: #0097a7; /* darker teal on hover */
+}

@@ -1,0 +1,140 @@
+/* -----------------------------------------
+   Payment Page – Scaffolders Education
+   Clean UI • Green Theme • Responsive
+------------------------------------------ */
+
+.payment-page {
+  background: linear-gradient(to bottom right, #f1f8e9, #e8f5e9);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Source Serif Pro', serif;
+  padding: 20px;
+}
+
+.payment-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  padding: 40px;
+  text-align: center;
+  width: 380px;
+  max-width: 100%;
+}
+
+.payment-logo {
+  width: 120px;
+  margin-bottom: 15px;
+}
+
+.payment-heading {
+  color: #2e7d32;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.payment-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.payment-input {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #c8e6c9;
+  font-size: 15px;
+}
+
+.payment-amount {
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.payment-discount {
+  color: #2e7d32;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.payment-final {
+  margin-top: 10px;
+  color: #1b5e20;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* Buttons */
+.pay-btn {
+  background: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.pay-btn:hover {
+  background: #449d48;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: #1565c0;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.back-btn {
+  margin-top: 20px;
+  background: none;
+  border: none;
+  color: #2e7d32;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+/* Share section */
+.share-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.share-btn {
+  background: #00bfa6;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.share-btn:hover {
+  background: #00a892;
+}
+
+/* Responsive */
+@media (max-width: 450px) {
+  .payment-card {
+    padding: 30px 25px;
+    width: 90%;
+  }
+
+  .payment-logo {
+    width: 100px;
+  }
+}

@@ -1,0 +1,30 @@
+.status {
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+}
+
+.status.completed {
+  color: green;
+  font-weight: bold;
+}
+
+.status.in-progress {
+  color: orange;
+}
+
+.status.locked {
+  color: red;
+}
+
+.locked {
+  opacity: 0.6;
+}
+
+.locked-btn {
+  background: #ccc;
+  color: #666;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: not-allowed;
+}
