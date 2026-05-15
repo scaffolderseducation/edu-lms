@@ -1,4 +1,5 @@
 // src/App.js
+
 import React, { Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -33,11 +34,9 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
 import RefundPolicy from "./pages/RefundPolicy";
 
-// Blog
-import Blog from "./Blog";
-import TeacherCertification from "./blogs/TeacherCertification";
-import OnlineCourses from "./blogs/OnlineCourses";
-import Importance from "./blogs/Importance";
+// ✅ Dynamic Blog System
+import Blog from "./blogs/Blog";
+import BlogPost from "./blogs/BlogPost";
 
 // ⭐ Home Page
 function HomePage() {
@@ -53,9 +52,16 @@ function HomePage() {
         Welcome to Scaffolders Education
       </h1>
 
-      <p style={{ maxWidth: "600px", margin: "20px auto", fontSize: "18px" }}>
-        A global LMS built for educators. Learn AI skills, teaching innovation,
-        and future-forward classroom strategies — all in one place.
+      <p
+        style={{
+          maxWidth: "600px",
+          margin: "20px auto",
+          fontSize: "18px",
+        }}
+      >
+        A global LMS built for educators. Learn AI skills,
+        teaching innovation, and future-forward classroom
+        strategies — all in one place.
       </p>
 
       <a
@@ -96,8 +102,11 @@ function App() {
               alt="Scaffolders Education Logo"
               style={{ width: "120px", marginBottom: "20px" }}
             />
+
             <h2>Scaffolders Education</h2>
+
             <div className="spinner"></div>
+
             <p>Loading your learning experience...</p>
           </div>
         }
@@ -107,11 +116,13 @@ function App() {
           {/* ⭐ Home */}
           <Route path="/" element={<HomePage />} />
 
-          {/* ⭐ Blog */}
+          {/* ✅ Blog System */}
           <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/teacher-certification" element={<TeacherCertification />} />
-          <Route path="/blog/online-teaching-courses" element={<OnlineCourses />} />
-          <Route path="/blog/importance-of-certification" element={<Importance />} />
+
+          <Route
+            path="/blog/:slug"
+            element={<BlogPost />}
+          />
 
           {/* ⭐ Public Pages */}
           <Route path="/courses" element={<Courses />} />
@@ -119,22 +130,52 @@ function App() {
           <Route path="/contact" element={<Contact />} />
 
           {/* ⭐ Policies */}
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/refund-policy" element={<RefundPolicy />} />
+          <Route
+            path="/privacy-policy"
+            element={<PrivacyPolicy />}
+          />
+
+          <Route
+            path="/terms"
+            element={<Terms />}
+          />
+
+          <Route
+            path="/refund-policy"
+            element={<RefundPolicy />}
+          />
 
           {/* ⭐ Auth */}
           <Route path="/login" element={<Login />} />
+
           <Route path="/signup" element={<Signup />} />
-          <Route path="/admin-upload" element={<AdminUpload />} />
-          <Route path="/test-login" element={<TestLogin />} />
+
+          <Route
+            path="/admin-upload"
+            element={<AdminUpload />}
+          />
+
+          <Route
+            path="/test-login"
+            element={<TestLogin />}
+          />
 
           {/* ⭐ Public Module Preview */}
-          <Route path="/preview-module/:moduleId" element={<ModuleWrapper />} />
+          <Route
+            path="/preview-module/:moduleId"
+            element={<ModuleWrapper />}
+          />
 
           {/* ⭐ Payments */}
-          <Route path="/payment" element={<PaymentPage />} />
-          <Route path="/payment-success" element={<PaymentSuccess />} />
+          <Route
+            path="/payment"
+            element={<PaymentPage />}
+          />
+
+          <Route
+            path="/payment-success"
+            element={<PaymentSuccess />}
+          />
 
           {/* ⭐ Protected Routes */}
           <Route

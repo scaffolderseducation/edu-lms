@@ -1,24 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-<url>
-<loc>https://scaffolderseducation.in/</loc>
-<priority>1.0</priority>
-</url>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+>
 
-<url>
-<loc>https://scaffolderseducation.in/courses</loc>
-<priority>0.8</priority>
-</url>
+  <url>
+    <loc>https://scaffolderseducation.in/</loc>
+    <priority>1.0</priority>
+  </url>
 
-<url>
-<loc>https://scaffolderseducation.in/about</loc>
-<priority>0.7</priority>
-</url>
+  <url>
+    <loc>https://scaffolderseducation.in/courses</loc>
+    <priority>0.9</priority>
+  </url>
 
-<url>
-<loc>https://scaffolderseducation.in/contact</loc>
-<priority>0.7</priority>
-</url>
+  <url>
+    <loc>https://scaffolderseducation.in/about</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://scaffolderseducation.in/contact</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- BLOG HOME -->
+
+  <url>
+    <loc>https://scaffolderseducation.in/blog</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- BLOG POSTS -->
+
+  <url>
+    <loc>
+      https://scaffolderseducation.in/blog/how-ai-is-transforming-modern-classrooms
+    </loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>
+      https://scaffolderseducation.in/blog/21st-century-skills-for-every-teacher
+    </loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>
+      https://scaffolderseducation.in/blog/ai-tools-every-teacher-should-know
+    </loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>
+      https://scaffolderseducation.in/blog/benefits-of-online-certification-for-teachers
+    </loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>
+      https://scaffolderseducation.in/blog/how-teachers-can-use-chatgpt
+    </loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>
+      https://scaffolderseducation.in/blog/future-of-ai-in-indian-education
+    </loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>
+      https://scaffolderseducation.in/blog/best-skills-for-future-classrooms
+    </loc>
+    <priority>0.8</priority>
+  </url>
 
 </urlset>

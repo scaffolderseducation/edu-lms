@@ -6,12 +6,29 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer-content">
-        <p>© {new Date().getFullYear()} Scaffolders Education</p>
+
+        <p>
+          © {new Date().getFullYear()} Scaffolders Education
+        </p>
 
         <div className="footer-links">
-          <Link to="/privacy-policy">Privacy Policy</Link>
-          <Link to="/terms">Terms & Conditions</Link>
-          <Link to="/refund-policy">Refund Policy</Link>
+          
+          <Link to="/privacy-policy">
+            Privacy Policy
+          </Link>
+
+          <Link to="/terms">
+            Terms & Conditions
+          </Link>
+
+          <Link to="/refund-policy">
+            Refund Policy
+          </Link>
+
+          <Link to="/blog">
+            Blog
+          </Link>
+
         </div>
       </div>
     </footer>

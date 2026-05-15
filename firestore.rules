@@ -1,31 +1,104 @@
 rules_version = '2';
+
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Users can only access their own profile
+    /* =========================================
+       USERS
+    ========================================= */
     match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+
+      // Only logged-in owner can access own profile
+      allow read, write:
+        if request.auth != null &&
+        request.auth.uid == userId;
     }
 
-    // Everyone logged in can read course modules & quizzes
-    match /modules/{moduleId} {
-      allow read: if request.auth != null;
-      allow write: if false; // prevent random edits from frontend
-    }
+    /* =========================================
+       COURSES
+       Future scalable LMS structure
+    ========================================= */
+    match /courses/{courseId} {
 
-    match /quizzes/{quizId} {
+      // Any logged-in user can read published courses
       allow read: if request.auth != null;
+
+      // Only admins can create/edit courses later
       allow write: if false;
+
+      /* =====================================
+         MODULES INSIDE COURSES
+      ===================================== */
+      match /modules/{moduleId} {
+
+        allow read: if request.auth != null;
+
+        allow write: if false;
+      }
+
+      /* =====================================
+         QUIZZES INSIDE COURSES
+      ===================================== */
+      match /quizzes/{quizId} {
+
+        allow read: if request.auth != null;
+
+        allow write: if false;
+      }
     }
 
-    // Store quiz attempts, users can only write their own results
+    /* =========================================
+       QUIZ ATTEMPTS
+    ========================================= */
     match /quizAttempts/{attemptId} {
-      allow read, write: if request.auth != null && request.auth.uid == request.resource.data.userId;
+
+      allow create:
+        if request.auth != null &&
+        request.auth.uid == request.resource.data.userId;
+
+      allow read:
+        if request.auth != null &&
+        request.auth.uid == resource.data.userId;
+
+      allow update, delete: if false;
     }
 
-    // Certificates, only the owner can read/write
-    match /certificates/{certId} {
-      allow read, write: if request.auth != null && request.auth.uid == resource.data.userId;
+    /* =========================================
+       CERTIFICATES
+    ========================================= */
+    match /certificates/{certificateId} {
+
+      allow read:
+        if request.auth != null &&
+        request.auth.uid == resource.data.userId;
+
+      allow create:
+        if request.auth != null &&
+        request.auth.uid == request.resource.data.userId;
+
+      allow update, delete: if false;
+    }
+
+    /* =========================================
+       PAYMENTS
+    ========================================= */
+    match /payments/{paymentId} {
+
+      allow read:
+        if request.auth != null &&
+        request.auth.uid == resource.data.userId;
+
+      allow create:
+        if request.auth != null;
+
+      allow update, delete: if false;
+    }
+
+    /* =========================================
+       DEFAULT DENY EVERYTHING ELSE
+    ========================================= */
+    match /{document=**} {
+      allow read, write: if false;
     }
   }
 }

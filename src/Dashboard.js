@@ -1,133 +1,220 @@
 // src/Dashboard.js
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import {
+  doc,
+  getDoc,
+} from "firebase/firestore";
+
+import { auth, db } from "./firebase";
+
 import modulesList from "./modulesList";
 import logo from "./assets/scaffolders-logo.png";
 
 function Dashboard() {
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(true);
+
   const [user, setUser] = useState(null);
+
   const [entryPaid, setEntryPaid] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [certificatePaid, setCertificatePaid] = useState(false);
 
-  // ✅ Load user info from localStorage
+  // ✅ LOAD USER DATA FROM FIRESTORE
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user")); // fixed key
-    if (storedUser) {
-      setUser(storedUser);
-      setEntryPaid(storedUser.entryPaid || false);
-      setQuizCompleted(storedUser.quizCompleted || false);
-      setCertificatePaid(storedUser.certificatePaid || false);
-    } else {
-      navigate("/"); // redirect if not logged in
-    }
+    const fetchUserData = async () => {
+      try {
+        const currentUser = auth.currentUser;
+
+        if (!currentUser) {
+          navigate("/login");
+          return;
+        }
+
+        const userRef = doc(db, "users", currentUser.uid);
+
+        const userSnap = await getDoc(userRef);
+
+        if (userSnap.exists()) {
+          const data = userSnap.data();
+
+          setUser({
+            uid: currentUser.uid,
+            email: currentUser.email,
+            ...data,
+          });
+
+          setEntryPaid(data.entryPaid || false);
+
+          setQuizCompleted(data.quizCompleted || false);
+
+          setCertificatePaid(data.certificatePaid || false);
+        } else {
+          alert("User data not found");
+        }
+      } catch (error) {
+        console.error(error);
+
+        alert("Failed to load dashboard");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
   }, [navigate]);
 
-  // ✅ Handle module access
+  // ✅ HANDLE MODULE ACCESS
   const handleModuleAccess = (id) => {
     if (!entryPaid) {
-      alert("⚠️ Please pay the entry fee first to start learning.");
+      alert("⚠️ Please pay the entry fee first.");
+
       navigate("/payment");
     } else {
       navigate(`/module/${id}`);
     }
   };
 
+  // ✅ CERTIFICATE PAYMENT
   const handleCertificatePayment = () => {
     if (!quizCompleted) {
-      alert("Complete all modules and quiz first!");
-    } else {
-      navigate("/certificate-payment");
+      alert("Complete all modules first.");
+      return;
+    }
+
+    navigate("/payment?type=certificate");
+  };
+
+  // ✅ VIEW CERTIFICATE
+  const handleViewCertificate = () => {
+    navigate("/certificate");
+  };
+
+  // ✅ LOGOUT FIXED
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+
+      localStorage.clear();
+
+      sessionStorage.clear();
+
+      navigate("/login", { replace: true });
+
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+
+      alert("Logout failed");
     }
   };
 
-  const handleViewCertificate = () => navigate("/certificate");
-
-  // ✅ Logout properly
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    navigate("/");
-  };
+  // ✅ LOADING SCREEN
+  if (loading) {
+    return (
+      <div style={styles.loadingContainer}>
+        <h2>Loading Dashboard...</h2>
+      </div>
+    );
+  }
 
   return (
     <div style={styles.page}>
       <div style={styles.wrapper}>
         {/* HEADER */}
         <header style={styles.header}>
-          <img src={logo} alt="Scaffolders Education" style={styles.logo} />
-          <h1 style={styles.title}>Scaffolders Education Learning Portal</h1>
+          <img
+            src={logo}
+            alt="Scaffolders Education"
+            style={styles.logo}
+          />
+
+          <h1 style={styles.title}>
+            Scaffolders Education Learning Portal
+          </h1>
+
           <p style={styles.subtitle}>
             Where Learning Meets AI — Empowering Educators Worldwide
           </p>
         </header>
 
-        {/* MAIN CONTENT */}
+        {/* MAIN */}
         <main style={styles.card}>
           <h2 style={styles.welcome}>
             Welcome, {user?.name || "Learner"} 👋
           </h2>
-          {user?.email && <p style={styles.email}>Email: {user.email}</p>}
-          {user?.country && (
-            <p style={styles.country}>🌍 Country: {user.country}</p>
+
+          {user?.email && (
+            <p style={styles.email}>
+              Email: {user.email}
+            </p>
           )}
 
-          {/* Entry Fee Section */}
+          {user?.country && (
+            <p style={styles.country}>
+              🌍 Country: {user.country}
+            </p>
+          )}
+
+          {/* ENTRY PAYMENT */}
           {!entryPaid && (
             <>
               <h3 style={styles.sectionTitle}>
                 Entry Fee:{" "}
                 {user?.country === "India"
-                  ? "₹99 (India)"
-                  : "$10 (International)"}
+                  ? "₹99"
+                  : "$10"}
               </h3>
+
               <button
                 style={styles.primaryButton}
                 onClick={() => navigate("/payment")}
               >
-                Pay Entry Fee to Start Learning
+                Pay Entry Fee
               </button>
             </>
           )}
 
-          {/* Modules Section */}
+          {/* MODULES */}
           {entryPaid && (
             <>
-              <h3 style={styles.sectionTitle}>📘 Available Modules</h3>
+              <h3 style={styles.sectionTitle}>
+                📘 Available Modules
+              </h3>
+
               <div style={styles.moduleGrid}>
                 {modulesList.map((mod) => (
                   <div
                     key={mod.id}
                     style={styles.moduleCard}
-                    onClick={() => handleModuleAccess(mod.id)}
-                    onMouseEnter={(e) =>
-                      (e.currentTarget.style.transform = "scale(1.02)")
-                    }
-                    onMouseLeave={(e) =>
-                      (e.currentTarget.style.transform = "scale(1)")
+                    onClick={() =>
+                      handleModuleAccess(mod.id)
                     }
                   >
-                    <h4 style={styles.moduleTitle}>{mod.title}</h4>
-                    <p style={styles.moduleDesc}>{mod.description}</p>
+                    <h4 style={styles.moduleTitle}>
+                      {mod.title}
+                    </h4>
+
+                    <p style={styles.moduleDesc}>
+                      {mod.description}
+                    </p>
                   </div>
                 ))}
               </div>
             </>
           )}
 
-          {/* Certificate Payment */}
+          {/* CERTIFICATE */}
           {quizCompleted && !certificatePaid && (
             <>
               <h3 style={styles.sectionTitle}>
-                Certificate Fee:{" "}
-                {user?.country === "India"
-                  ? "₹599 (India)"
-                  : "$100 (International)"}
+                Certificate Fee
               </h3>
-              <p style={styles.discountText}>
-                💡 Use promo code <b>EDUCATE21</b> or get 10% off for 100% quiz
-                score.
-              </p>
+
               <button
                 style={styles.primaryButton}
                 onClick={handleCertificatePayment}
@@ -137,25 +224,33 @@ function Dashboard() {
             </>
           )}
 
-          {/* Certificate View */}
+          {/* VIEW CERTIFICATE */}
           {certificatePaid && (
-            <button style={styles.viewButton} onClick={handleViewCertificate}>
-              🎓 View / Download Certificate
+            <button
+              style={styles.viewButton}
+              onClick={handleViewCertificate}
+            >
+              🎓 View Certificate
             </button>
           )}
 
-          {/* LOGOUT BUTTON */}
-          <button style={styles.logoutButton} onClick={handleLogout}>
+          {/* LOGOUT */}
+          <button
+            style={styles.logoutButton}
+            onClick={handleLogout}
+          >
             Logout
           </button>
         </main>
 
         {/* FOOTER */}
         <footer style={styles.footer}>
-          <p style={styles.signature}>Scaffolders</p>
+          <p style={styles.signature}>
+            Scaffolders
+          </p>
+
           <p style={styles.footerNote}>
-            © {new Date().getFullYear()} Scaffolders Education. All Rights
-            Reserved.
+            © {new Date().getFullYear()} Scaffolders Education
           </p>
         </footer>
       </div>
@@ -165,7 +260,8 @@ function Dashboard() {
 
 const styles = {
   page: {
-    background: "linear-gradient(to bottom right, #f1f8e9, #e8f5e9)",
+    background:
+      "linear-gradient(to bottom right, #f1f8e9, #e8f5e9)",
     minHeight: "100vh",
     fontFamily: "'Source Serif Pro', serif",
     display: "flex",
@@ -173,6 +269,7 @@ const styles = {
     alignItems: "center",
     padding: "40px 20px",
   },
+
   wrapper: {
     width: "100%",
     maxWidth: "900px",
@@ -181,45 +278,51 @@ const styles = {
     boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
     overflow: "hidden",
   },
+
   header: {
     textAlign: "center",
     backgroundColor: "#4caf50",
     color: "#fff",
     padding: "30px 20px",
   },
+
   logo: {
     width: "90px",
     marginBottom: "10px",
   },
+
   title: {
     fontSize: "24px",
-    margin: "5px 0",
   },
+
   subtitle: {
     fontStyle: "italic",
     fontSize: "15px",
-    opacity: 0.9,
   },
+
   card: {
     padding: "40px",
     textAlign: "center",
   },
+
   welcome: {
     color: "#2e7d32",
-    marginBottom: "8px",
   },
+
   email: {
     color: "#555",
-    marginBottom: "5px",
   },
+
   country: {
     color: "#555",
     marginBottom: "20px",
   },
+
   sectionTitle: {
     color: "#1b5e20",
-    marginBottom: "10px",
+    marginTop: "25px",
   },
+
   primaryButton: {
     background: "#4caf50",
     color: "#fff",
@@ -227,48 +330,46 @@ const styles = {
     border: "none",
     borderRadius: "10px",
     marginTop: "10px",
-    fontSize: "16px",
     cursor: "pointer",
     fontWeight: "bold",
-    transition: "background 0.3s ease",
   },
+
   moduleGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+    gridTemplateColumns:
+      "repeat(auto-fit, minmax(250px, 1fr))",
     gap: "20px",
     marginTop: "20px",
   },
+
   moduleCard: {
     border: "2px solid #a5d6a7",
     borderRadius: "12px",
     padding: "20px",
     cursor: "pointer",
-    transition: "all 0.3s ease",
     background: "#fafafa",
   },
+
   moduleTitle: {
     color: "#1b5e20",
-    marginBottom: "10px",
   },
+
   moduleDesc: {
     fontSize: "14px",
     color: "#333",
   },
-  discountText: {
-    color: "#4e342e",
-    fontSize: "15px",
-    marginBottom: "10px",
-  },
+
   viewButton: {
     background: "#2e7d32",
     color: "#fff",
     padding: "12px 24px",
     border: "none",
     borderRadius: "8px",
-    fontSize: "16px",
+    marginTop: "20px",
     cursor: "pointer",
     fontWeight: "bold",
   },
+
   logoutButton: {
     background: "#c62828",
     color: "#fff",
@@ -279,21 +380,28 @@ const styles = {
     cursor: "pointer",
     fontWeight: "bold",
   },
+
   footer: {
     textAlign: "center",
     backgroundColor: "#f1f8e9",
     padding: "20px",
-    borderTop: "1px solid #c8e6c9",
   },
+
   signature: {
-    fontFamily: "'Pacifico', cursive",
-    fontSize: "26px",
+    fontSize: "24px",
     color: "#388e3c",
-    marginBottom: "5px",
   },
+
   footerNote: {
     fontSize: "13px",
     color: "#666",
+  },
+
+  loadingContainer: {
+    height: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
 };
 
