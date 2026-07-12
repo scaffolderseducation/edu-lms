@@ -3,8 +3,19 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import logo from "./assets/scaffolders-logo.png";
 import "./PaymentPage.css";
+const prices = {
+  entry: {
+    INR: 99,
+    USD: 10,
+  },
+  certificate: {
+    INR: 599,
+    USD: 100,
+  },
+};
 
 function PaymentPage() {
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -20,18 +31,7 @@ function PaymentPage() {
   const [shareCount, setShareCount] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  const prices = {
-  entry: {
-    INR: 99,
-    USD: 10,
-  },
-  certificate: {
-    INR: 599,
-    USD: 100,
-  },
-};
-
-  useEffect(() => {
+    useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user")) || {};
     setUser(storedUser);
     setEmail(storedUser?.email || "");
@@ -68,7 +68,7 @@ function PaymentPage() {
 
     setDiscount(totalDiscount);
     setFinalAmount(Math.round(discounted));
-  }, [promoCode, paymentType, currency, shareCount]);
+  }, [promoCode, paymentType, currency, shareCount, prices]);
 
   const handlePayNow = async () => {
     // ✅ login protection
