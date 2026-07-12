@@ -139,7 +139,7 @@ function PaymentPage() {
                 email,
                 paymentType,
                 amount: finalAmount,
-                uid: user?.email || "guest-user",
+                uid: user.uid,
               }),
             }
           );

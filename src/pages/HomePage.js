@@ -1,36 +1,54 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./HomePage.css";
+import blogData from "../blogs/blogData";
+import "../Home.css";
 
 function HomePage() {
+
   return (
+
     <div className="home-container">
 
-      {/* ================= HERO SECTION ================= */}
+      {/* ======================================================
+          HERO SECTION
+      ====================================================== */}
+
       <section className="hero">
 
         <div className="hero-left">
 
           <h1>
-            Scaffolders Education <br />
+
+            Scaffolders Education
+
+            <br />
+
             <span>From Doubts to Distinction</span>
+
           </h1>
 
           <p>
-            A modern professional learning platform helping educators,
-            teachers, and professionals build future-ready skills through
-            structured courses, AI-integrated learning, certification,
-            and practical education.
+
+            Empowering teachers, educators, students and professionals
+            through practical learning, AI-powered education,
+            certification programmes and career-focused skill development.
+
           </p>
 
           <div className="hero-buttons">
 
-            <Link to="/login" className="hero-btn">
-              Start Learning
+            <Link
+              to="/courses"
+              className="hero-btn"
+            >
+              Explore Courses
             </Link>
 
-            <Link to="/courses" className="hero-btn secondary">
-              Explore Courses
+            <Link
+              to="/signup"
+              className="hero-btn secondary"
+            >
+              Join Free
             </Link>
 
           </div>
@@ -49,103 +67,237 @@ function HomePage() {
 
       </section>
 
-      {/* ================= CREDIBILITY SECTION ================= */}
+      {/* ======================================================
+          TRUST SECTION
+      ====================================================== */}
 
       <section className="credibility">
 
-        <h2>Why Trust Scaffolders Education?</h2>
+        <h2>
+
+          Why Thousands of Learners Will Trust Scaffolders Education
+
+        </h2>
 
         <p className="credibility-text">
-          Scaffolders Education is designed with an educator-first
-          approach focused on practical learning, structured teaching,
-          AI awareness, certification, and future-ready education.
+
+          Built by an educator with expertise in Statistics,
+          Business Analytics, Artificial Intelligence and
+          modern teaching practices.
+
         </p>
 
         <div className="credibility-grid">
 
           <div className="credibility-card">
-            <h3>Qualified Academic Background</h3>
+
+            <h3>Research Driven</h3>
 
             <p>
-              Academic specialization in Statistics and Business Analytics
-              with national-level teaching and eligibility qualifications.
+
+              Every course follows structured pedagogy,
+              practical implementation and measurable outcomes.
+
             </p>
+
           </div>
 
           <div className="credibility-card">
-            <h3>Teaching Experience</h3>
+
+            <h3>AI Integrated</h3>
 
             <p>
-              Experience across structured educational environments
-              including Army Public School with learner-centric teaching.
+
+              Learn how Artificial Intelligence can improve
+              productivity, lesson planning and classroom delivery.
+
             </p>
+
           </div>
 
           <div className="credibility-card">
-            <h3>AI & Modern Education</h3>
+
+            <h3>Self Paced</h3>
 
             <p>
-              Focused on AI-integrated learning, digital education,
-              analytics, and practical classroom innovation.
+
+              Learn anytime from anywhere with lifetime access.
+
             </p>
+
           </div>
 
           <div className="credibility-card">
-            <h3>Global Learning Vision</h3>
+
+            <h3>Professional Certification</h3>
 
             <p>
-              Built to support scalable online learning experiences
-              for educators and professionals across countries.
+
+              Showcase your learning with industry-oriented
+              certification.
+
             </p>
+
           </div>
 
         </div>
 
       </section>
 
-      {/* ================= COURSE INTRO ================= */}
+      {/* ======================================================
+          FLAGSHIP COURSE
+      ====================================================== */}
 
       <section className="course-intro">
 
-        <h2>Our Flagship Certification Program</h2>
+        <h2>
+
+          AI for Educators
+
+        </h2>
 
         <p className="course-subtitle">
-          Structured learning. Practical application.
-          Real certification.
+
+          Live Now • Self Paced • Lifetime Access
+
         </p>
 
         <div className="home-course-card">
 
-          <h3>Professional Certification Program</h3>
+          <h3>
+
+            AI for Educators — Foundations
+
+          </h3>
 
           <p className="course-desc">
-            This program is designed to help learners develop strong
-            conceptual understanding, practical application skills,
-            and professional confidence through guided modules
-            and assessment-based certification.
+
+            Learn ChatGPT, AI lesson planning,
+            AI assessment creation,
+            classroom productivity,
+            AI ethics and responsible classroom use.
+
           </p>
 
           <ul className="course-points">
-            <li>✔ Structured self-paced modules</li>
-            <li>✔ Practical explanations & real examples</li>
-            <li>✔ Assessment-based certification</li>
-            <li>✔ Digitally verifiable certificate</li>
-            <li>✔ AI-integrated future-ready learning</li>
-            <li>✔ Lifetime access to course materials</li>
+
+            <li>✔ Beginner Friendly</li>
+
+            <li>✔ No Coding Required</li>
+
+            <li>✔ Lifetime Access</li>
+
+            <li>✔ Practical Demonstrations</li>
+
+            <li>✔ Completion Certificate</li>
+
+            <li>✔ Continuous Updates</li>
+
           </ul>
+
+          <div className="launch-offer">
+
+            <h4>
+
+              🚀 Launch Offer
+
+            </h4>
+
+            <p>
+
+              First <strong>500 learners</strong> can enrol
+              for only <strong>₹99</strong>.
+
+              Afterwards the course fee will increase.
+
+            </p>
+
+          </div>
 
           <div className="hero-buttons">
 
-            <Link to="/courses" className="hero-btn">
-              View Course Details
+            <Link
+              to="/courses"
+              className="hero-btn"
+            >
+              View Course
             </Link>
 
             <Link
               to="/payment?type=entry"
               className="hero-btn secondary"
             >
-              Enroll Now – ₹99
+              Enrol Now ₹99
             </Link>
+
+          </div>
+
+        </div>
+
+      </section>      {/* ======================================================
+          FOUNDER SECTION
+      ====================================================== */}
+
+      <section className="founder-section">
+
+        <div className="founder-container">
+
+          <div className="founder-image">
+
+            <img
+              src="/founder.jpg"
+              alt="Dr. Sarika Jain"
+            />
+
+          </div>
+
+          <div className="founder-content">
+
+            <h2>Meet the Founder</h2>
+
+            <h3> Sarika Jain</h3>
+
+<h4 style={{ marginTop: "10px", color: "#0f2c2c" }}>
+  Founder & Lead Educator, Scaffolders Education
+</h4>
+
+<p>
+  <strong>Educator • Researcher • Business Analytics Professional</strong>
+</p>
+
+<p style={{ lineHeight: "2" }}>
+  ✔ UGC-NET Qualified <br />
+  ✔ APS-CSB Qualified <br />
+  ✔ Four-time CTET Qualified <br />
+  ✔ Former Army Public School Teacher <br />
+  ✔ An IIM Trichy Alumni <br />
+  ✔ AI in Education Enthusiast
+</p>
+
+<p style={{ marginTop: "20px" }}>
+  <strong>Mission</strong><br />
+  Committed to transforming teacher education through practical,
+  affordable, AI-powered learning experiences that prepare educators
+  and students for the future.
+</p>
+
+            <p>
+
+              Scaffolders Education was established with a vision to
+              bridge the gap between traditional education and
+              future-ready learning by combining AI, analytics,
+              practical teaching methodologies and career-focused
+              education.
+
+            </p>
+
+            <p>
+
+              Our mission is simple —
+              make quality education affordable,
+              accessible and useful for every learner.
+
+            </p>
 
           </div>
 
@@ -153,43 +305,30 @@ function HomePage() {
 
       </section>
 
-      {/* ================= FEATURES ================= */}
+      {/* ======================================================
+          FEATURES
+      ====================================================== */}
 
       <section className="features">
 
-        <h2>Why Learners Choose Us</h2>
+        <h2>
+
+          Why Join Now?
+
+        </h2>
 
         <div className="feature-grid">
 
           <div className="feature-card">
 
-            <h4>Structured Learning</h4>
+            <h4>Launch Pricing</h4>
 
             <p>
-              Step-by-step modules designed for conceptual clarity
-              and easy understanding.
-            </p>
 
-          </div>
+              Join today for only ₹99.
+              This offer is available only for the first
+              500 learners.
 
-          <div className="feature-card">
-
-            <h4>Assessment-Based</h4>
-
-            <p>
-              Validate your learning through practical assessments
-              before certification.
-            </p>
-
-          </div>
-
-          <div className="feature-card">
-
-            <h4>Recognized Certification</h4>
-
-            <p>
-              Receive digitally verifiable certificates that can
-              be shared professionally.
             </p>
 
           </div>
@@ -199,8 +338,39 @@ function HomePage() {
             <h4>Lifetime Access</h4>
 
             <p>
-              Learn anytime, anywhere with unlimited access
-              to purchased course content.
+
+              Learn anytime.
+              Future updates are included without
+              additional charges.
+
+            </p>
+
+          </div>
+
+          <div className="feature-card">
+
+            <h4>Certificate</h4>
+
+            <p>
+
+              Earn a professional completion certificate
+              after successfully completing the course.
+
+            </p>
+
+          </div>
+
+          <div className="feature-card">
+
+            <h4>Practical Learning</h4>
+
+            <p>
+
+              Real classroom examples,
+              AI tools,
+              assignments,
+              demonstrations and implementation.
+
             </p>
 
           </div>
@@ -209,20 +379,277 @@ function HomePage() {
 
       </section>
 
-      {/* ================= EDUCATIONAL LEADERSHIP ================= */}
+      {/* ======================================================
+          BLOGS
+      ====================================================== */}
+
+      <section className="blog-section">
+
+        <h2>
+
+          Latest Learning Articles
+
+        </h2>
+
+        <p className="blog-subtitle">
+
+          Explore practical articles on AI,
+          teaching,
+          analytics,
+          career guidance and education.
+
+        </p>
+
+        <div className="blog-grid">
+
+          {blogData.slice(0,8).map((blog)=>(
+
+            <div
+              key={blog.id}
+              className="blog-card"
+            >
+
+              <img
+                src={blog.image}
+                alt={blog.title}
+              />
+
+              <div className="blog-content">
+
+                <h3>
+
+                  {blog.title}
+
+                </h3>
+
+                <p>
+
+                  {blog.excerpt}
+
+                </p>
+
+                <Link
+                  to={`/blog/${blog.slug}`}
+                  className="blog-read-btn"
+                >
+
+                  Read More →
+
+                </Link>
+
+              </div>
+
+            </div>
+
+          ))}
+
+        </div>
+
+        <div
+          style={{
+            textAlign:"center",
+            marginTop:"45px"
+          }}
+        >
+
+          <Link
+            to="/blog"
+            className="hero-btn"
+          >
+
+            View All Articles
+
+          </Link>
+
+        </div>
+
+      </section>      {/* ======================================================
+          LIVE & UPCOMING COURSES
+      ====================================================== */}
+
+      <section className="upcoming-courses">
+
+        <h2>
+
+          Explore Our Learning Programs
+
+        </h2>
+
+        <p className="course-subtitle">
+
+          More career-focused programmes are being added continuously.
+
+        </p>
+
+        <div className="course-grid">
+
+          <div className="course-box">
+
+            <h3>AI for Educators</h3>
+
+            <p>
+
+              Master ChatGPT, AI lesson planning,
+              assessment generation, classroom productivity
+              and responsible AI usage.
+
+            </p>
+
+            <Link
+              to="/payment?type=entry"
+              className="hero-btn"
+            >
+
+              Enrol Now
+
+            </Link>
+
+          </div>
+
+          <div className="course-box">
+
+            <h3>CTET Complete Preparation</h3>
+
+            <p>
+
+              Complete preparation for Paper I & II with
+              pedagogy, mock tests, previous papers and
+              interview guidance.
+
+            </p>
+
+            <Link
+              to="/contact"
+              className="hero-btn"
+            >
+
+              Coming Soon
+
+            </Link>
+
+          </div>
+
+          <div className="course-box">
+
+            <h3>Career Guidance Programme</h3>
+
+            <p>
+
+              Career planning for students after Class X,
+              XII and Graduation including government,
+              private and international opportunities.
+
+            </p>
+
+            <Link
+              to="/contact"
+              className="hero-btn"
+            >
+
+              Coming Soon
+
+            </Link>
+
+          </div>
+
+          <div className="course-box">
+
+            <h3>Financial Literacy for Students</h3>
+
+            <p>
+
+              Learn budgeting, investing,
+              taxation, digital payments,
+              banking and wealth creation.
+
+            </p>
+
+            <Link
+              to="/contact"
+              className="hero-btn"
+            >
+
+              Coming Soon
+
+            </Link>
+
+          </div>
+
+          <div className="course-box">
+
+            <h3>Quantitative Aptitude Mastery</h3>
+
+            <p>
+
+              Arithmetic, Data Interpretation,
+              Logical Reasoning and Competitive Exam
+              Preparation.
+
+            </p>
+
+            <Link
+              to="/contact"
+              className="hero-btn"
+            >
+
+              Coming Soon
+
+            </Link>
+
+          </div>
+
+          <div className="course-box">
+
+            <h3>Sainik School Entrance Coaching</h3>
+
+            <p>
+
+              Complete preparation with
+              Mathematics,
+              English,
+              Reasoning,
+              Mock Tests
+              and Interview Guidance.
+
+            </p>
+
+            <Link
+              to="/contact"
+              className="hero-btn"
+            >
+
+              Coming Soon
+
+            </Link>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* ======================================================
+          EDUCATIONAL LEADERSHIP
+      ====================================================== */}
 
       <section className="testimonials">
 
-        <h2>Educational Leadership</h2>
+        <h2>
+
+          Our Vision
+
+        </h2>
 
         <div className="test-grid">
 
           <div className="test-card">
 
             <p>
-              Scaffolders Education combines educational experience,
-              analytical thinking, and modern technology integration
-              to create practical and future-focused learning systems.
+
+              Scaffolders Education aims to build India's
+              most trusted practical learning ecosystem
+              where technology meets quality education.
+
             </p>
 
           </div>
@@ -230,9 +657,11 @@ function HomePage() {
           <div className="test-card">
 
             <p>
-              The platform focuses on teacher development,
-              AI awareness, certification programs,
-              and scalable online education for modern learners.
+
+              We believe learning should be affordable,
+              practical, career-oriented and accessible
+              to everyone.
+
             </p>
 
           </div>
@@ -241,32 +670,47 @@ function HomePage() {
 
       </section>
 
-      {/* ================= CTA ================= */}
+      {/* ======================================================
+          CALL TO ACTION
+      ====================================================== */}
 
       <section className="cta">
 
         <h2>
-          Start Building Future-Ready Skills Today
+
+          Ready to Future-Proof Your Career?
+
         </h2>
 
-        <p
-          style={{
-            maxWidth: "700px",
-            margin: "20px auto",
-            color: "#555",
-            lineHeight: "1.8",
-            fontSize: "18px",
-          }}
-        >
-          Learn practical skills, explore AI-integrated education,
-          and earn professional certifications designed for
-          modern educators and learners.
+        <p>
+
+          Join thousands of learners who are preparing
+          themselves for the AI era through practical,
+          structured and affordable education.
+
         </p>
 
-        <div className="hero-buttons" style={{ justifyContent: "center" }}>
+        <div
+          className="hero-buttons"
+          style={{justifyContent:"center"}}
+        >
 
-          <Link to="/signup" className="hero-btn">
-            Join Scaffolders Education
+          <Link
+            to="/payment?type=entry"
+            className="hero-btn"
+          >
+
+            Join AI for Educators — ₹99
+
+          </Link>
+
+          <Link
+            to="/courses"
+            className="hero-btn secondary"
+          >
+
+            Browse Courses
+
           </Link>
 
         </div>
@@ -274,7 +718,9 @@ function HomePage() {
       </section>
 
     </div>
+
   );
+
 }
 
 export default HomePage;

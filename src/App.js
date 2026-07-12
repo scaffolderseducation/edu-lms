@@ -16,6 +16,9 @@ import PaymentPage from "./PaymentPage";
 import PaymentSuccess from "./PaymentSuccess";
 import ModulePage from "./ModulePage";
 import conclusionData from "./modules/conclusion";
+import CTETPage from "./pages/CTETPage";
+import AptitudePage from "./pages/AptitudePage";
+import SainikSchoolPage from "./pages/SainikSchoolPage";
 
 import "./loader.css";
 import logo from "./assets/scaffolders-logo.png";
@@ -37,57 +40,7 @@ import RefundPolicy from "./pages/RefundPolicy";
 // ✅ Dynamic Blog System
 import Blog from "./blogs/Blog";
 import BlogPost from "./blogs/BlogPost";
-
-// ⭐ Home Page
-function HomePage() {
-  return (
-    <div style={{ padding: "40px", textAlign: "center" }}>
-      <img
-        src={logo}
-        alt="Scaffolders Education"
-        style={{ width: "180px", marginBottom: "20px" }}
-      />
-
-      <h1 style={{ color: "#1b5e20" }}>
-        Welcome to Scaffolders Education
-      </h1>
-
-      <p
-        style={{
-          maxWidth: "600px",
-          margin: "20px auto",
-          fontSize: "18px",
-        }}
-      >
-        A global LMS built for educators. Learn AI skills,
-        teaching innovation, and future-forward classroom
-        strategies — all in one place.
-      </p>
-
-      <a
-        href="/signup"
-        style={{
-          marginTop: "20px",
-          display: "inline-block",
-          padding: "12px 25px",
-          background: "#198754",
-          color: "white",
-          borderRadius: "8px",
-          fontSize: "18px",
-          textDecoration: "none",
-        }}
-      >
-        Start Learning
-      </a>
-
-      <div style={{ marginTop: "40px", fontSize: "16px" }}>
-        ⭐ Courses crafted by real educators <br />
-        ⭐ Beginner-friendly AI training <br />
-        ⭐ Earn shareable certificates
-      </div>
-    </div>
-  );
-}
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
@@ -128,7 +81,17 @@ function App() {
           <Route path="/courses" element={<Courses />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/courses/ctet" element={<CTETPage />} />
 
+<Route
+  path="/courses/aptitude"
+  element={<AptitudePage />}
+/>
+
+<Route
+  path="/courses/sainik-school"
+  element={<SainikSchoolPage />}
+/>
           {/* ⭐ Policies */}
           <Route
             path="/privacy-policy"
