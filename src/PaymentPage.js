@@ -21,9 +21,15 @@ function PaymentPage() {
   const [loading, setLoading] = useState(false);
 
   const prices = {
-    entry: { INR: 99, USD: 10 },
-    certificate: { INR: 599, USD: 100 },
-  };
+  entry: {
+    INR: 99,
+    USD: 10,
+  },
+  certificate: {
+    INR: 599,
+    USD: 100,
+  },
+};
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user")) || {};
