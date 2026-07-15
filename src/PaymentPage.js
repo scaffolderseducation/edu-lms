@@ -1,18 +1,21 @@
 // src/PaymentPage.js
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import logo from "./assets/scaffolders-logo.png";
 import "./PaymentPage.css";
-const prices = {
-  entry: {
-    INR: 99,
-    USD: 10,
-  },
-  certificate: {
-    INR: 599,
-    USD: 100,
-  },
-};
+const prices = useMemo(
+  () => ({
+    entry: {
+      INR: 99,
+      USD: 10,
+    },
+    certificate: {
+      INR: 599,
+      USD: 100,
+    },
+  }),
+  []
+);
 
 function PaymentPage() {
 
