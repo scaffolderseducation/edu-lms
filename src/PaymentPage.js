@@ -1,26 +1,24 @@
 // src/PaymentPage.js
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import logo from "./assets/scaffolders-logo.png";
 import "./PaymentPage.css";
 
-function PaymentPage() {
+const prices = {
+  entry: {
+    INR: 99,
+    USD: 10,
+  },
+  certificate: {
+    INR: 599,
+    USD: 100,
+  },
+};
 
+function PaymentPage() {
   const navigate = useNavigate();
   const location = useLocation();
-
-  const prices = useMemo(() => ({
-    entry: {
-      INR: 99,
-      USD: 10,
-    },
-    certificate: {
-      INR: 599,
-      USD: 100,
-    },
-  }), []);
-
   const [user, setUser] = useState({});
   const [paymentType, setPaymentType] = useState("entry");
   const [country, setCountry] = useState("");
@@ -62,7 +60,8 @@ function PaymentPage() {
   useEffect(() => {
 
     const base =
-      prices[paymentType][currency] || 0;
+      const base =
+  prices[paymentType]?.[currency] || 0;
 
     let totalDiscount = 0;
 
