@@ -59,9 +59,7 @@ function PaymentPage() {
 
   useEffect(() => {
 
-    const base =
-      const base =
-  prices[paymentType]?.[currency] || 0;
+const base = prices[paymentType]?.[currency] || 0;
 
     let totalDiscount = 0;
 
