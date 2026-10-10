@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "./assets/scaffolders-logo.png";
+import logo from "../assets/scaffolders-logo.png";
 
 function PaymentSuccess() {
   const navigate = useNavigate();

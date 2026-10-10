@@ -24,7 +24,7 @@ const Navbar = () => {
       <div className={`nav-links ${menuOpen ? "open" : ""}`}>
         <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
         <Link to="/dashboard" onClick={() => setMenuOpen(false)}>Dashboard</Link>
-        <Link to="/blog">Blog</Link>
+        
       </div>
 
     </nav>
@@ -32,3 +32,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

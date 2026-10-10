@@ -1,9 +1,12 @@
+import { db } from "../firebase";
+import { doc, updateDoc } from "firebase/firestore";
+import { api } from "../services/api";
 // src/PaymentPage.js
 
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import logo from "./assets/scaffolders-logo.png";
-import "./PaymentPage.css";
+import logo from "../assets/scaffolders-logo.png";
+import "../PaymentPage.css";
 
 const prices = {
   entry: {
@@ -93,7 +96,7 @@ const base = prices[paymentType]?.[currency] || 0;
 
   const handlePayNow = async () => {
 
-    if (!user?.name) {
+    if (!user || (!user.uid && !user.email)) {
       alert("Please login first.");
       navigate("/login");
       return;
@@ -118,26 +121,13 @@ const base = prices[paymentType]?.[currency] || 0;
 
       setLoading(true);
 
-      const response = await fetch(
-
-        `${process.env.REACT_APP_API_URL}/api/payment/create-order`,
-
-        {
-          method: "POST",
-
-          headers: {
-            "Content-Type": "application/json",
-          },
-
-          body: JSON.stringify({
+      const response = await api.post("/api/payment/create-order", {
             amount: finalAmount,
             paymentType,
             email,
-          }),
-        }
-      );
+          });
 
-      const order = await response.json();
+      const order = response;
 
       if (!order.id) {
 
@@ -166,30 +156,28 @@ const base = prices[paymentType]?.[currency] || 0;
 
         handler: async function (response) {
 
-          const verifyRes = await fetch(
-
-            `${process.env.REACT_APP_API_URL}/api/payment/verify`,
-
-            {
-              method: "POST",
-
-              headers: {
-                "Content-Type": "application/json",
-              },
-
-              body: JSON.stringify({
+          const verifyRes = await api.post("/api/payment/verify", {
                 ...response,
                 email,
                 paymentType,
                 amount: finalAmount,
                 uid: user.uid|| user.email,
-              }),
-            }
-          );
+              });
 
-          const verifyData = await verifyRes.json();
+          const verifyData = verifyRes;
 
           if (verifyData.success) {
+              // FIX: Update Firestore directly from frontend!
+              try {
+                if (paymentType === "entry") {
+                  await updateDoc(doc(db, "users", user.uid || user.email), { entryPaid: true });
+                } else if (paymentType === "certificate") {
+                  await updateDoc(doc(db, "users", user.uid || user.email), { certificatePaid: true });
+                }
+              } catch (e) {
+                console.error("Failed to update Firestore:", e);
+              }
+
 
             const updatedUser = {
 
@@ -287,7 +275,8 @@ const base = prices[paymentType]?.[currency] || 0;
 
         <input
           className="payment-input"
-          value={user?.name || ""}
+          placeholder="Full Name"
+            value={user?.name || ""}
           readOnly
         />
 

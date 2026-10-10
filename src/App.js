@@ -1,46 +1,47 @@
-// src/App.js
-
 import React, { Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-
-import Login from "./Login";
-import Signup from "./Signup";
-import Dashboard from "./Dashboard";
-import Quiz from "./Quiz";
 import ProtectedRoute from "./ProtectedRoute";
-import Certificate from "./Certificate";
-import PaymentPage from "./PaymentPage";
-import PaymentSuccess from "./PaymentSuccess";
-import ModulePage from "./ModulePage";
 import conclusionData from "./modules/conclusion";
-import CTETPage from "./pages/CTETPage";
-import AptitudePage from "./pages/AptitudePage";
-import SainikSchoolPage from "./pages/SainikSchoolPage";
-
 import "./loader.css";
 import logo from "./assets/scaffolders-logo.png";
-
-import AdminUpload from "./AdminUpload";
-import ModuleWrapper from "./ModuleWrapper";
-import TestLogin from "./TestLogin";
-
-// Pages
-import Courses from "./pages/Courses";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-
-// Policies
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
 import RefundPolicy from "./pages/RefundPolicy";
 
-// ✅ Dynamic Blog System
-import Blog from "./blogs/Blog";
-import BlogPost from "./blogs/BlogPost";
 import HomePage from "./pages/HomePage";
+
+// src/App.js
+
+
+
+const Login = React.lazy(() => import("./pages/Login"));
+const Signup = React.lazy(() => import("./pages/Signup"));
+const Dashboard = React.lazy(() => import("./pages/Dashboard"));
+const Quiz = React.lazy(() => import("./pages/Quiz"));
+const Certificate = React.lazy(() => import("./pages/Certificate"));
+const PaymentPage = React.lazy(() => import("./pages/PaymentPage"));
+const PaymentSuccess = React.lazy(() => import("./pages/PaymentSuccess"));
+const ModulePage = React.lazy(() => import("./pages/ModulePage"));
+const CTETPage = React.lazy(() => import("./pages/CTETPage"));
+const AptitudePage = React.lazy(() => import("./pages/AptitudePage"));
+const SainikSchoolPage = React.lazy(() => import("./pages/SainikSchoolPage"));
+
+
+const AdminUpload = React.lazy(() => import("./AdminUpload"));
+const ModuleWrapper = React.lazy(() => import("./pages/ModuleWrapper"));
+const TestLogin = React.lazy(() => import("./TestLogin"));
+
+// Pages
+const Courses = React.lazy(() => import("./pages/Courses"));
+const About = React.lazy(() => import("./pages/About"));
+const Contact = React.lazy(() => import("./pages/Contact"));
+
+// Policies
+
+// ✅ Dynamic Blog System
+const BlogPost = React.lazy(() => import("./blogs/BlogPost"));
 
 function App() {
   return (
@@ -70,7 +71,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
 
           {/* ✅ Blog System */}
-          <Route path="/blog" element={<Blog />} />
+          
 
           <Route
             path="/blog/:slug"
@@ -207,3 +208,5 @@ function App() {
 }
 
 export default App;
+
+

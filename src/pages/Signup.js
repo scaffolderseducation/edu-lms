@@ -7,10 +7,10 @@ import {
   updateProfile,
 } from "firebase/auth";
 
-import { auth, db } from "./firebase";
+import { auth, db } from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
 
-import "./Auth.css";
+import "../Auth.css";
 
 function Signup() {
   const navigate = useNavigate();

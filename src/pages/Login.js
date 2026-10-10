@@ -8,9 +8,9 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 
-import { auth } from "./firebase";
+import { auth } from "../firebase";
 
-import logo from "./assets/scaffolders-logo.png";
+import logo from "../assets/scaffolders-logo.png";
 
 function Login() {
 

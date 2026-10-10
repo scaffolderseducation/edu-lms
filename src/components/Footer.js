@@ -25,9 +25,7 @@ export default function Footer() {
             Refund Policy
           </Link>
 
-          <Link to="/blog">
-            Blog
-          </Link>
+          
 
         </div>
       </div>

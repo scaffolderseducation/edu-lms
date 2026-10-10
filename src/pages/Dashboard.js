@@ -8,10 +8,10 @@ import {
   getDoc,
 } from "firebase/firestore";
 
-import { auth, db } from "./firebase";
+import { auth, db } from "../firebase";
 
-import modulesList from "./modulesList";
-import logo from "./assets/scaffolders-logo.png";
+import modulesList from "../modulesList";
+import logo from "../assets/scaffolders-logo.png";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -234,13 +234,7 @@ function Dashboard() {
             </button>
           )}
 
-          {/* LOGOUT */}
-          <button
-            style={styles.logoutButton}
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
+          
         </main>
 
         {/* FOOTER */}

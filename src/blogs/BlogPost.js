@@ -135,7 +135,7 @@ function BlogPost() {
           </Link>
 
           <Link
-            to="/blog"
+            to="/"
             className="cta-btn secondary"
           >
             Read More Blogs

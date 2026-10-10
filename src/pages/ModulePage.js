@@ -2,20 +2,21 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "./firebase";
-import VideoPlayer from "./VideoPlayer";
-import LessonNotes from "./LessonNotes";
+import { db } from "../firebase";
+import VideoPlayer from "../VideoPlayer";
+import LessonNotes from "../LessonNotes";
 import Quiz from "./Quiz";
-import moduleDataLocal from "./moduleData";   // ✅ Local preview modules
+import moduleDataLocal from "../moduleData";   // ✅ Local preview modules
 
 function ModulePage({ moduleId: propModuleId }) {
-  const { moduleId: routeModuleId } = useParams();
+  const { moduleId: routeModuleId, id } = useParams();
+  const finalRouteId = routeModuleId || id;
   const location = useLocation();
 
   // Decide the moduleId source:
   const moduleId =
     propModuleId ||            // passed as a prop (old setup)
-    routeModuleId ||           // coming from URL
+    finalRouteId ||           // coming from URL
     null;
 
   const [moduleData, setModuleData] = useState(null);
@@ -27,37 +28,15 @@ function ModulePage({ moduleId: propModuleId }) {
 
   useEffect(() => {
     // ---------------------------
-    // ⭐ PREVIEW MODE (public)
+    // USE LOCAL DATA FOR NOW
     // ---------------------------
-    if (isPreview) {
-      const localModule = moduleDataLocal[moduleId];
-      setModuleData(localModule || null);
-      setLoading(false);
-      return;
+    const localModule = moduleDataLocal[moduleId] || moduleDataLocal["module" + moduleId];
+    if (localModule) {
+      setModuleData(localModule);
+    } else {
+      console.error("Module not found locally for ID:", moduleId);
     }
-
-    // ---------------------------
-    // ⭐ FIRESTORE MODE (students)
-    // ---------------------------
-    const fetchFromDB = async () => {
-      try {
-        const docRef = doc(db, "modules", moduleId);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          setModuleData(docSnap.data());
-        } else {
-          alert("❌ Module not found in database!");
-        }
-      } catch (error) {
-        console.error("Error loading module:", error);
-        alert("Error fetching module data.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchFromDB();
+    setLoading(false);
   }, [moduleId, isPreview]);
 
   const handleQuizResult = (score) => {
@@ -87,7 +66,7 @@ function ModulePage({ moduleId: propModuleId }) {
 
       {/* Quiz */}
       {moduleData.quiz ? (
-        <Quiz questions={moduleData.quiz} onResult={handleQuizResult} />
+        <Quiz questions={moduleData.quiz.questions} onResult={handleQuizResult} />
       ) : (
         <p style={{ marginTop: "20px" }}>🧠 Quiz coming soon.</p>
       )}

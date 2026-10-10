@@ -2,7 +2,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import ModulePage from "./ModulePage";
-import moduleData from "./moduleData";
+import moduleData from "../moduleData";
 
 function ModuleWrapper() {
   const { moduleId } = useParams();

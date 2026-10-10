@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./Certificate.css";
-import logo from "./assets/scaffolders-logo.png";
-import signature from "./assets/signature.png";
+import "../Certificate.css";
+import logo from "../assets/scaffolders-logo.png";
+import signature from "../assets/signature.png";
 
 const Certificate = () => {
   const [name, setName] = useState("");
