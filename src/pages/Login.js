@@ -54,7 +54,8 @@ function Login() {
         JSON.stringify({
           uid: user.uid,
           email: user.email,
-        })
+            name: user.displayName || ""
+          })
       );
 
       alert("Login Successful ✅");

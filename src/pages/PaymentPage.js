@@ -35,20 +35,17 @@ function PaymentPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-
-    const storedUser =
-      JSON.parse(localStorage.getItem("user")) || {};
-
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (!storedUser || !storedUser.email) {
+      alert("Please login first to access checkout.");
+      navigate("/login", { replace: true });
+      return;
+    }
     setUser(storedUser);
-
     setEmail(storedUser.email || "");
-
-    const type =
-      new URLSearchParams(location.search).get("type") || "entry";
-
+    const type = new URLSearchParams(location.search).get("type") || "entry";
     setPaymentType(type);
-
-  }, [location]);
+  }, [location, navigate]);
 
   useEffect(() => {
 
