@@ -9,15 +9,8 @@ import Quiz from "./Quiz";
 import moduleDataLocal from "../moduleData";   // ✅ Local preview modules
 
 function ModulePage({ moduleId: propModuleId }) {
-  const { moduleId: routeModuleId, id } = useParams();
-  const finalRouteId = routeModuleId || id;
+  const { id } = useParams();
   const location = useLocation();
-
-  // Decide the moduleId source:
-  const moduleId =
-    propModuleId ||            // passed as a prop (old setup)
-    finalRouteId ||           // coming from URL
-    null;
 
   const [moduleData, setModuleData] = useState(null);
   const [quizPassed, setQuizPassed] = useState(false);
@@ -26,18 +19,32 @@ function ModulePage({ moduleId: propModuleId }) {
   // Detect Preview Mode (public access)
   const isPreview = location.pathname.includes("/preview-module/");
 
-  useEffect(() => {
-    // ---------------------------
-    // USE LOCAL DATA FOR NOW
-    // ---------------------------
-    const localModule = moduleDataLocal[moduleId] || moduleDataLocal["module" + moduleId];
-    if (localModule) {
-      setModuleData(localModule);
-    } else {
-      console.error("Module not found locally for ID:", moduleId);
+    useEffect(() => {
+    if (isPreview) {
+      const localModule = moduleDataLocal["module" + id] || moduleDataLocal[id];
+      setModuleData(localModule || null);
+      setLoading(false);
+      return;
     }
-    setLoading(false);
-  }, [moduleId, isPreview]);
+
+    const fetchFromDB = async () => {
+      try {
+        const docRef = doc(db, "modules", String(id));
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setModuleData(docSnap.data());
+        } else {
+          alert("Module not found in database!");
+        }
+      } catch (error) {
+        console.error("Error loading module:", error);
+        alert("Error fetching module data.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchFromDB();
+  }, [id, isPreview]);
 
   const handleQuizResult = (score) => {
     if (score >= 80) {
@@ -53,7 +60,7 @@ function ModulePage({ moduleId: propModuleId }) {
 
   return (
     <div className="module-container">
-      <h2>{moduleData.title || moduleId}</h2>
+      <h2>{moduleData.title || id}</h2>
 
       {/* Video Lessons */}
       {moduleData.videos?.map((video, i) => (
