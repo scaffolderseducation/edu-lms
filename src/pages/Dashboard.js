@@ -94,26 +94,7 @@ function Dashboard() {
     navigate("/certificate");
   };
 
-  // ✅ LOGOUT FIXED
-  const handleLogout = async () => {
-    try {
-      await auth.signOut();
-
-      localStorage.clear();
-
-      sessionStorage.clear();
-
-      navigate("/login", { replace: true });
-
-      window.location.reload();
-    } catch (error) {
-      console.error(error);
-
-      alert("Logout failed");
-    }
-  };
-
-  // ✅ LOADING SCREEN
+// ✅ LOADING SCREEN
   if (loading) {
     return (
       <div style={styles.loadingContainer}>
