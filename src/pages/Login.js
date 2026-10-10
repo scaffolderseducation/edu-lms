@@ -8,7 +8,8 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 import logo from "../assets/scaffolders-logo.png";
 
@@ -46,19 +47,16 @@ function Login() {
         );
 
       const user = userCredential.user;
-
-      // ✅ Store user locally
-
-      localStorage.setItem(
-        "user",
-        JSON.stringify({
-          uid: user.uid,
-          email: user.email,
-            name: user.displayName || ""
-          })
-      );
-
-      alert("Login Successful ✅");
+        let userData = { uid: user.uid, email: user.email, name: user.displayName || "" };
+        try {
+          const userDocSnap = await getDoc(doc(db, "users", user.uid));
+          if (userDocSnap.exists()) {
+            userData = { ...userData, ...userDocSnap.data() };
+          }
+        } catch(e) { console.error("Could not fetch user doc", e); }
+        localStorage.setItem("user", JSON.stringify(userData));
+        
+        alert("Login Successful ✅");
 
       navigate("/dashboard");
 

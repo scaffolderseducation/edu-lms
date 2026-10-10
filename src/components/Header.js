@@ -37,7 +37,12 @@ function Header() {
         {user ? (
           <>
             <Link to="/dashboard" className="se-login-btn">Dashboard</Link>
-            <button onClick={() => signOut(auth)} className="se-logout-btn">Logout</button>
+            <button onClick={async () => {
+              await signOut(auth);
+              localStorage.removeItem("user");
+              sessionStorage.removeItem("user");
+              window.location.href = "/login";
+            }} className="se-logout-btn">Logout</button>
           </>
         ) : (
           <Link to="/login" className="se-login-btn">Login</Link>

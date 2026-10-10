@@ -41,9 +41,19 @@ function PaymentPage() {
       navigate("/login", { replace: true });
       return;
     }
+    const type = new URLSearchParams(location.search).get("type") || "entry";
+    if (type === "entry" && storedUser.entryPaid) {
+      alert("You are already enrolled! Redirecting to your Dashboard.");
+      navigate("/dashboard", { replace: true });
+      return;
+    }
+    if (type === "certificate" && storedUser.certificatePaid) {
+      alert("You have already paid for the certificate!");
+      navigate("/dashboard", { replace: true });
+      return;
+    }
     setUser(storedUser);
     setEmail(storedUser.email || "");
-    const type = new URLSearchParams(location.search).get("type") || "entry";
     setPaymentType(type);
   }, [location, navigate]);
 

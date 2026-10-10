@@ -119,10 +119,17 @@ html, body { overflow-x: hidden; }
 
 /* Global Highlight / Selection Colors */
 ::selection {
-  background-color: #0B6E4F !important;
-  color: #ffffff !important;
+  background-color: #a7f3d0;
+  color: #000000;
 }
 ::-moz-selection {
-  background-color: #0B6E4F !important;
-  color: #ffffff !important;
+  background-color: #a7f3d0;
+  color: #000000;
+}
+
+
+/* Prevent highlighting on buttons */
+button, .link-btn, .back-btn, .se-logout-btn, .se-login-btn {
+  user-select: none !important;
+  -webkit-user-select: none !important;
 }
