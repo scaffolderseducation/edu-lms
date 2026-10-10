@@ -88,7 +88,9 @@
 .link-btn {
   background: none;
   border: none;
-  color: #1565c0;
+  color: #0B6E4F;
+    font-weight: 600;
+    transition: color 0.2s;
   cursor: pointer;
   text-decoration: underline;
   font-size: 14px;
