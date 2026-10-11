@@ -1,97 +1,70 @@
 import React from "react";
+import CourseInterestForm from "../components/CourseInterestForm";
 
 function CTETPage() {
   return (
     <div
       style={{
-        maxWidth: "1200px",
+        maxWidth: "1100px",
         margin: "0 auto",
-        padding: "50px 20px",
+        padding: "40px 20px",
       }}
     >
-      <h1>CTET Preparation Program 2026</h1>
-
-      <p>
-        Prepare confidently for CTET Paper I and Paper II
-        through live classes, study materials, practice tests,
-        and expert guidance.
-      </p>
-
-      <div
+      <span
         style={{
-          background: "#f5f5f5",
-          padding: "20px",
-          borderRadius: "10px",
-          marginTop: "20px",
+          display: "inline-block",
+          background: "#ffe8cc",
+          color: "#d35400",
+          padding: "5px 14px",
+          borderRadius: "20px",
+          fontSize: "13px",
+          fontWeight: "bold",
+          marginBottom: "12px",
+          textTransform: "uppercase",
         }}
       >
-        <h3>Next Batch Starts</h3>
+        Upcoming Cohort • Pre-Registration Open
+      </span>
 
-        <p>
-          <strong>21 June 2026</strong>
-        </p>
+      <h1 style={{ color: "#d35400", margin: "4px 0 16px 0" }}>
+        CTET Preparation Program
+      </h1>
 
-        <button
-          style={{
-            padding: "12px 24px",
-            background: "#00a295",
-            color: "#fff",
-            border: "none",
-            borderRadius: "8px",
-            cursor: "pointer",
-          }}
-        >
-          Enroll Now
-        </button>
-      </div>
-
-      <h2 style={{ marginTop: "40px" }}>
-        Course Overview
-      </h2>
-
-      <p>
-        This course is designed for aspiring teachers preparing
-        for CTET Paper I and Paper II.
+      <p style={{ fontSize: "16px", color: "#444", lineHeight: "1.7" }}>
+        Prepare confidently for CTET Paper I and Paper II through structured lessons,
+        study materials, practice tests, and expert faculty guidance.
       </p>
 
-      <h2 style={{ marginTop: "40px" }}>
-        What You Will Learn
-      </h2>
+      <h2 style={{ marginTop: "35px", color: "#333" }}>Course Overview</h2>
+      <p style={{ color: "#555", lineHeight: "1.7" }}>
+        This course is designed for aspiring teachers preparing for the Central Teacher
+        Eligibility Test (CTET) across primary and upper-primary stages.
+      </p>
 
-      <ul>
-        <li>Child Development & Pedagogy</li>
-        <li>Mathematics</li>
-        <li>Environmental Studies</li>
-        <li>Language I</li>
-        <li>Language II</li>
-        <li>Previous Year Papers</li>
-        <li>Mock Tests</li>
+      <h2 style={{ marginTop: "35px", color: "#333" }}>What You Will Learn</h2>
+      <ul style={{ color: "#555", lineHeight: "1.8", paddingLeft: "20px" }}>
+        <li>Child Development & Pedagogy (CDP)</li>
+        <li>Mathematics & Pedagogy</li>
+        <li>Environmental Studies (EVS)</li>
+        <li>Language I & Language II (Hindi / English)</li>
+        <li>Science & Social Science options</li>
+        <li>Previous 10 Years Solved Papers</li>
+        <li>Exam-Pattern Mock Tests & Time Management</li>
       </ul>
 
-      <h2 style={{ marginTop: "40px" }}>
-        Frequently Asked Questions
-      </h2>
-
-      <p>
-        <strong>
-          Are classes live or recorded?
-        </strong>
+      <h2 style={{ marginTop: "35px", color: "#333" }}>Frequently Asked Questions</h2>
+      <p style={{ marginTop: "10px" }}>
+        <strong>Will classes be live or recorded?</strong>
+      </p>
+      <p style={{ color: "#555" }}>
+        We offer both Live Interactive cohorts and Recorded Self-Study modules. You can select
+        your preferred mode in the pre-registration form below.
       </p>
 
-      <p>
-        Classes are conducted live online.
-      </p>
-
-      <p>
-        <strong>
-          Are rolling batches available?
-        </strong>
-      </p>
-
-      <p>
-        Yes. New batches are launched periodically
-        throughout the year.
-      </p>
+      {/* Embedded Pre-Registration Form for CTET */}
+      <div style={{ marginTop: "40px" }}>
+        <CourseInterestForm initialCourse="CTET Preparation Program" />
+      </div>
     </div>
   );
 }

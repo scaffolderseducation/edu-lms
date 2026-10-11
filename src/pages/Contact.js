@@ -49,17 +49,16 @@ function Contact() {
 
         <p style={{ color: "#555", fontSize: "16px", marginBottom: "12px" }}>
           <strong>Email:</strong>{" "}
-          <span style={{ color: "#6A1B9A", fontWeight: "bold" }}>
-            scaffolders.education@gmail.com
-          </span>
+          <a
+            href="mailto:scaffolders.sj@gmail.com"
+            style={{ color: "#6A1B9A", fontWeight: "bold", textDecoration: "none" }}
+          >
+            scaffolders.sj@gmail.com
+          </a>
         </p>
 
         <p style={{ color: "#555", fontSize: "16px", marginBottom: "12px" }}>
-          <strong>Phone:</strong> +91-XXXXXXXXXX
-        </p>
-
-        <p style={{ color: "#555", fontSize: "16px", marginBottom: "12px" }}>
-          <strong>Address:</strong> Scaffolders Education, Jaipur, Rajasthan, India
+          <strong>Address:</strong> Scaffolders Education, Hyderabad, Telangana, India
         </p>
 
         <h3 style={{ color: "#6A1B9A", marginTop: "30px" }}>Working Hours</h3>

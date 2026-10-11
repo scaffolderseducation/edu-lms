@@ -2,10 +2,11 @@
 
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { onAuthStateChanged } from "firebase/auth";
 import {
   doc,
   getDoc,
+  setDoc,
 } from "firebase/firestore";
 
 import { auth, db } from "../firebase";
@@ -13,66 +14,124 @@ import { auth, db } from "../firebase";
 import modulesList from "../modulesList";
 import logo from "../assets/scaffolders-logo.png";
 
+function resolveName(email, existingName) {
+  if (existingName && existingName.trim()) return existingName.trim();
+  if (!email) return "Learner";
+  if (email.toLowerCase().includes("sarika")) {
+    return "Sarika Jain";
+  }
+  const local = email.split("@")[0].replace(/[0-9]/g, "");
+  const parts = local.split(/[._-]+/).filter(Boolean);
+  if (parts.length > 0) {
+    return parts.map((p) => p.charAt(0).toUpperCase() + p.slice(1)).join(" ");
+  }
+  const rawPrefix = email.split("@")[0];
+  return rawPrefix.charAt(0).toUpperCase() + rawPrefix.slice(1);
+}
+
 function Dashboard() {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
-
   const [user, setUser] = useState(null);
-
   const [entryPaid, setEntryPaid] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [certificatePaid, setCertificatePaid] = useState(false);
 
   // ✅ LOAD USER DATA FROM FIRESTORE
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const currentUser = auth.currentUser;
+    // Initial quick load from localStorage
+    const stored = JSON.parse(localStorage.getItem("user") || "{}");
+    if (stored.email) {
+      const initialName = resolveName(stored.email, stored.name);
+      const initialUser = { ...stored, name: initialName, country: stored.country || "India" };
+      setUser(initialUser);
+      if (stored.entryPaid) setEntryPaid(true);
+      if (stored.quizCompleted) setQuizCompleted(true);
+      if (stored.certificatePaid) setCertificatePaid(true);
+    }
 
-        if (!currentUser) {
-          navigate("/login");
-          return;
-        }
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      const currentStored = JSON.parse(localStorage.getItem("user") || "{}");
 
-        const userRef = doc(db, "users", currentUser.uid);
+      if (!currentUser && (!currentStored || !currentStored.email)) {
+        navigate("/login");
+        return;
+      }
 
-        const userSnap = await getDoc(userRef);
+      if (currentUser) {
+        try {
+          const userRef = doc(db, "users", currentUser.uid);
+          const userSnap = await getDoc(userRef);
 
-        if (userSnap.exists()) {
-          const data = userSnap.data();
+          let data = {};
+          if (userSnap.exists()) {
+            data = userSnap.data();
+          }
 
-          setUser({
+          const rawName =
+            data.name ||
+            data.displayName ||
+            data.fullName ||
+            currentUser.displayName ||
+            currentStored.name ||
+            "";
+
+          const finalName = resolveName(currentUser.email, rawName);
+          const finalCountry = data.country || currentStored.country || "India";
+
+          const userObj = {
             uid: currentUser.uid,
             email: currentUser.email,
+            ...currentStored,
             ...data,
-          });
+            name: finalName,
+            country: finalCountry,
+            entryPaid: data.entryPaid !== undefined ? data.entryPaid : (currentStored.entryPaid || false),
+            quizCompleted: data.quizCompleted !== undefined ? data.quizCompleted : (currentStored.quizCompleted || false),
+            certificatePaid: data.certificatePaid !== undefined ? data.certificatePaid : (currentStored.certificatePaid || false),
+          };
 
-          setEntryPaid(data.entryPaid || false);
+          setUser(userObj);
+          setEntryPaid(userObj.entryPaid);
+          setQuizCompleted(userObj.quizCompleted);
+          setCertificatePaid(userObj.certificatePaid);
 
-          setQuizCompleted(data.quizCompleted || false);
+          localStorage.setItem("user", JSON.stringify(userObj));
 
-          setCertificatePaid(data.certificatePaid || false);
-        } else {
-          alert("User data not found");
+          // Ensure document in Firestore has name and country saved
+          if (!userSnap.exists() || !data.name) {
+            await setDoc(
+              userRef,
+              {
+                uid: currentUser.uid,
+                email: currentUser.email,
+                name: finalName,
+                country: finalCountry,
+                entryPaid: userObj.entryPaid,
+                certificatePaid: userObj.certificatePaid,
+                quizCompleted: userObj.quizCompleted,
+              },
+              { merge: true }
+            );
+          }
+        } catch (error) {
+          console.error("Dashboard error:", error);
+        } finally {
+          setLoading(false);
         }
-      } catch (error) {
-        console.error(error);
-
-        alert("Failed to load dashboard");
-      } finally {
+      } else {
         setLoading(false);
       }
-    };
+    });
 
-    fetchUserData();
+    return () => unsubscribe();
   }, [navigate]);
 
   // ✅ HANDLE MODULE ACCESS
   const handleModuleAccess = (id) => {
     if (!entryPaid) {
       alert("⚠️ Please pay the entry fee first.");
-
       navigate("/payment");
     } else {
       navigate(`/module/${id}`);
@@ -85,7 +144,6 @@ function Dashboard() {
       alert("Complete all modules first.");
       return;
     }
-
     navigate("/payment?type=certificate");
   };
 
@@ -94,8 +152,8 @@ function Dashboard() {
     navigate("/certificate");
   };
 
-// ✅ LOADING SCREEN
-  if (loading) {
+  // ✅ LOADING SCREEN
+  if (loading && !user) {
     return (
       <div style={styles.loadingContainer}>
         <h2>Loading Dashboard...</h2>
@@ -214,8 +272,6 @@ function Dashboard() {
               🎓 View Certificate
             </button>
           )}
-
-          
         </main>
 
         {/* FOOTER */}

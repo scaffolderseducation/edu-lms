@@ -39,7 +39,7 @@ function HomePage() {
               <span style={styles.category}>{blog.category}</span>
               <h2 style={styles.title}>{blog.title}</h2>
               <p style={styles.excerpt}>{blog.excerpt}</p>
-              <Link to={/blog/} style={styles.button}>
+              <Link to={`/blog/${blog.slug}`} style={styles.button}>
                 Read Full Article
               </Link>
             </div>

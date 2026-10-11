@@ -49,11 +49,36 @@ function Login() {
       const user = userCredential.user;
         let userData = { uid: user.uid, email: user.email, name: user.displayName || "" };
         try {
-          const userDocSnap = await getDoc(doc(db, "users", user.uid));
-          if (userDocSnap.exists()) {
-            userData = { ...userData, ...userDocSnap.data() };
+          let userDocSnap = await getDoc(doc(db, "users", user.uid));
+          if (!userDocSnap.exists() && user.email) {
+            userDocSnap = await getDoc(doc(db, "users", user.email));
           }
-        } catch(e) { console.error("Could not fetch user doc", e); }
+          if (userDocSnap.exists()) {
+            const docData = userDocSnap.data();
+            userData = {
+              ...userData,
+              ...docData,
+              name: docData.name || docData.displayName || docData.fullName || user.displayName || "",
+            };
+          }
+        } catch (e) {
+          console.error("Could not fetch user doc", e);
+        }
+
+        if (!userData.name && user.email) {
+          if (user.email.toLowerCase().includes("sarika")) {
+            userData.name = "Sarika Jain";
+          } else {
+            const local = user.email.split("@")[0].replace(/[0-9]/g, "");
+            const parts = local.split(/[._-]+/).filter(Boolean);
+            userData.name = parts.length > 0
+              ? parts.map((p) => p.charAt(0).toUpperCase() + p.slice(1)).join(" ")
+              : user.email.split("@")[0];
+          }
+        }
+        if (!userData.country) {
+          userData.country = "India";
+        }
         localStorage.setItem("user", JSON.stringify(userData));
         
         alert("Login Successful ✅");
@@ -76,32 +101,29 @@ function Login() {
   // FORGOT PASSWORD
   // ==============================
 
-  const handleForgotPassword = async () => {
+  const [resetLoading, setResetLoading] = useState(false);
 
+  const handleForgotPassword = async () => {
     if (!email) {
-      alert("Please enter your email first.");
+      alert("Please enter your email address in the field above first.");
       return;
     }
 
-    try {
+    if (resetLoading) return;
 
-      await sendPasswordResetEmail(
-        auth,
-        email
-      );
+    try {
+      setResetLoading(true);
+      await sendPasswordResetEmail(auth, email);
 
       alert(
-        "Password reset email sent ✅ Check inbox/spam."
+        "Password reset email sent successfully ✅\n\nImportant:\n1. Please check your latest email (inbox or spam folder).\n2. If multiple emails arrived, click ONLY the link from the most recent email (older links expire automatically).\n3. Click the link once and enter your new password."
       );
-
     } catch (error) {
-
-      console.error(
-        "Forgot Password Error:",
-        error
-      );
-
+      console.error("Forgot Password Error:", error);
       alert(error.message);
+    } finally {
+      // Cooldown to prevent multiple simultaneous clicks that invalidate links
+      setTimeout(() => setResetLoading(false), 5000);
     }
   };
 
@@ -163,7 +185,7 @@ function Login() {
             style={styles.forgotPassword}
             onClick={handleForgotPassword}
           >
-            Forgot Password?
+            {resetLoading ? "Sending reset email..." : "Forgot Password?"}
           </p>
 
           <p style={styles.signupText}>

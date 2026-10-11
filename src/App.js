@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
+import ScrollToTop from "./components/ScrollToTop";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./ProtectedRoute";
 import conclusionData from "./modules/conclusion";
@@ -46,6 +47,7 @@ const BlogPost = React.lazy(() => import("./blogs/BlogPost"));
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Header />
 
       <Suspense
@@ -83,16 +85,25 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/courses/ctet" element={<CTETPage />} />
+          <Route path="/ctet" element={<CTETPage />} />
 
-<Route
-  path="/courses/aptitude"
-  element={<AptitudePage />}
-/>
+          <Route
+            path="/courses/aptitude"
+            element={<AptitudePage />}
+          />
+          <Route
+            path="/aptitude"
+            element={<AptitudePage />}
+          />
 
-<Route
-  path="/courses/sainik-school"
-  element={<SainikSchoolPage />}
-/>
+          <Route
+            path="/courses/sainik-school"
+            element={<SainikSchoolPage />}
+          />
+          <Route
+            path="/sainik-school"
+            element={<SainikSchoolPage />}
+          />
           {/* ⭐ Policies */}
           <Route
             path="/privacy-policy"

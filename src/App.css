@@ -100,3 +100,88 @@ input, textarea {
 input:focus, textarea:focus {
   outline: 2px solid #00a295;
 }
+
+/* ========================================================
+   COURSES PAGE - RESPONSIVE 3-COLUMN GRID & MODERN CARDS
+   ======================================================== */
+.courses-container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 30px 20px 60px;
+}
+
+.courses-hero-banner {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.courses-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+  margin-bottom: 50px;
+}
+
+@media (max-width: 1024px) {
+  .courses-grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .courses-grid-3 {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+.course-card-modern {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.28s cubic-bezier(0.165, 0.84, 0.44, 1);
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+}
+
+.course-card-modern:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+}
+
+.course-card-modern .card-top-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+}
+
+.course-feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 18px 0 22px;
+}
+
+.course-feature-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.course-feature-list li svg,
+.course-feature-list li span.check-icon {
+  flex-shrink: 0;
+  font-weight: bold;
+}
